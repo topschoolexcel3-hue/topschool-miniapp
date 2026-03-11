@@ -232,7 +232,8 @@ const KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZ
 const tg  = window.Telegram?.WebApp;
 const tgU = tg?.initDataUnsafe?.user;
 // username sans @, fallback demo
-const USERNAME = (tgU?.username || 'demo').toLowerCase().replace('@','');
+const params = new URLSearchParams(window.location.search);
+const USERNAME = (params.get('u') || tgU?.username || 'demo').toLowerCase().replace('@','');
 const PRENOM   = tgU?.first_name || 'Apprenant';
 
 if (tg) { tg.ready(); tg.expand(); }
