@@ -6,340 +6,366 @@
 <title>TopSchool — Mes Formations</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap');
 
 :root{
-  --bg:#0a0c14; --s1:#111520; --s2:#181d2e;
+  --bg:#07090f;
+  --s1:#0e1220;
+  --s2:#141827;
   --brd:rgba(255,255,255,0.07);
-  --acc:#4f8eff; --acc2:#7c5cfc;
-  --grn:#2dce89; --red:#f75a5a;
-  --txt:#e8eaf2; --mut:#6b7494;
-  --r:16px;
+  --acc:#5b8dee;
+  --acc2:#a78bfa;
+  --grn:#34d399;
+  --red:#f87171;
+  --txt:#e2e8f0;
+  --mut:#64748b;
+  --r:14px;
+  --font:'Plus Jakarta Sans',sans-serif;
+  --mono:'DM Mono',monospace;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{height:100%}
-body{
-  font-family:'Sora',sans-serif;
-  background:var(--bg);color:var(--txt);
-  min-height:100vh;overflow-x:hidden;
-}
+html,body{height:100%;overflow-x:hidden}
+body{font-family:var(--font);background:var(--bg);color:var(--txt);min-height:100vh}
+
 body::before{
-  content:'';position:fixed;inset:0;
+  content:'';position:fixed;inset:0;pointer-events:none;
   background:
-    radial-gradient(ellipse 60% 40% at 20% 0%,rgba(79,142,255,.13) 0%,transparent 70%),
-    radial-gradient(ellipse 50% 35% at 85% 100%,rgba(124,92,252,.10) 0%,transparent 65%);
-  pointer-events:none;z-index:0;
+    radial-gradient(ellipse 80% 50% at 50% -20%,rgba(91,141,238,.12) 0%,transparent 70%),
+    radial-gradient(ellipse 40% 30% at 90% 90%,rgba(167,139,250,.08) 0%,transparent 60%);
 }
 
 /* ── HEADER ── */
 header{
   position:sticky;top:0;z-index:100;
-  background:rgba(10,12,20,.93);
-  backdrop-filter:blur(18px);
+  background:rgba(7,9,15,.92);backdrop-filter:blur(20px);
   border-bottom:1px solid var(--brd);
-  padding:0 18px;height:56px;
+  height:58px;padding:0 16px;
   display:flex;align-items:center;gap:12px;
 }
-.logo{
-  width:38px;height:38px;border-radius:11px;
+.logo-wrap{
+  width:36px;height:36px;border-radius:10px;flex-shrink:0;
   background:linear-gradient(135deg,var(--acc),var(--acc2));
   display:flex;align-items:center;justify-content:center;
-  font-size:18px;flex-shrink:0;
-  box-shadow:0 4px 14px rgba(79,142,255,.35);
+  font-size:17px;box-shadow:0 0 20px rgba(91,141,238,.3);
 }
-.logo-txt h1{font-size:16px;font-weight:700;letter-spacing:-.3px}
-.logo-txt p{font-size:10px;color:var(--mut)}
-.badge{
+.logo-info h1{font-size:15px;font-weight:700;letter-spacing:-.3px;line-height:1.2}
+.logo-info p{font-size:10px;color:var(--mut);font-family:var(--mono)}
+.user-chip{
   margin-left:auto;
-  background:rgba(45,206,137,.12);
-  border:1px solid rgba(45,206,137,.25);
+  background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.2);
   color:var(--grn);font-size:11px;font-weight:600;
-  padding:4px 10px;border-radius:20px;
-  font-family:'JetBrains Mono',monospace;
-  max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  padding:5px 11px;border-radius:20px;
+  font-family:var(--mono);white-space:nowrap;
+  max-width:130px;overflow:hidden;text-overflow:ellipsis;
 }
 
 /* ── MAIN ── */
-main{position:relative;z-index:1;padding:18px 16px 40px}
+main{padding:16px 14px 48px;position:relative;z-index:1}
 
-/* ── GREETING ── */
-.greet{
-  margin-bottom:20px;padding:16px 18px;
+/* ── WELCOME ── */
+.welcome{
   background:var(--s1);border:1px solid var(--brd);
-  border-radius:var(--r);position:relative;overflow:hidden;
-}
-.greet::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,var(--acc),var(--acc2));
-}
-.greet h2{font-size:18px;font-weight:800;margin-bottom:3px}
-.greet h2 span{color:var(--acc)}
-.greet p{font-size:12px;color:var(--mut)}
-
-/* ── SECTION LABEL ── */
-.lbl{
-  font-size:11px;font-weight:600;color:var(--mut);
-  letter-spacing:1.2px;text-transform:uppercase;
-  margin-bottom:10px;margin-top:4px;
-  display:flex;align-items:center;gap:8px;
-}
-.lbl::after{content:'';flex:1;height:1px;background:var(--brd)}
-
-/* ── CAT GRID ── */
-.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
-.cat{
-  background:var(--s1);border:1px solid var(--brd);
-  border-radius:var(--r);padding:14px 12px;
-  cursor:pointer;transition:all .18s;
-  display:flex;flex-direction:column;gap:6px;
-  text-align:left;width:100%;
+  border-radius:var(--r);padding:18px;margin-bottom:18px;
   position:relative;overflow:hidden;
 }
-.cat:active,.cat.on{
-  border-color:var(--acc);background:rgba(79,142,255,.08);
-  box-shadow:0 0 0 1px rgba(79,142,255,.3),0 6px 18px rgba(79,142,255,.14);
+.welcome::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--acc),var(--acc2),var(--grn));
 }
-.cat-ico{font-size:24px;line-height:1}
-.cat-nm{font-size:12.5px;font-weight:600;line-height:1.3}
-.cat-cnt{font-size:10px;color:var(--mut);font-family:'JetBrains Mono',monospace}
+.welcome h2{font-size:19px;font-weight:800;letter-spacing:-.4px;margin-bottom:4px}
+.welcome h2 span{
+  background:linear-gradient(90deg,var(--acc),var(--acc2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.welcome p{font-size:12px;color:var(--mut);line-height:1.5}
+
+/* ── SECTION LABEL ── */
+.sec-label{
+  font-family:var(--mono);font-size:10px;font-weight:500;
+  color:var(--mut);letter-spacing:1.5px;text-transform:uppercase;
+  margin-bottom:10px;display:flex;align-items:center;gap:8px;
+}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--brd)}
+
+/* ── CATEGORY GRID ── */
+.cat-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:10px;margin-bottom:22px;
+}
+.cat-btn{
+  background:var(--s1);border:1px solid var(--brd);
+  border-radius:var(--r);padding:16px 12px;
+  cursor:pointer;text-align:left;width:100%;
+  transition:all .2s;position:relative;overflow:hidden;
+}
+.cat-btn::before{
+  content:'';position:absolute;inset:0;opacity:0;
+  background:linear-gradient(135deg,rgba(91,141,238,.1),rgba(167,139,250,.1));
+  transition:opacity .2s;
+}
+.cat-btn:active,.cat-btn.active{
+  border-color:var(--acc);
+  box-shadow:0 0 0 1px rgba(91,141,238,.3),0 8px 24px rgba(91,141,238,.12);
+}
+.cat-btn:active::before,.cat-btn.active::before{opacity:1}
+.cat-ico{font-size:26px;display:block;margin-bottom:8px;line-height:1}
+.cat-name{font-size:12px;font-weight:700;margin-bottom:3px;letter-spacing:-.1px}
+.cat-count{font-size:10px;color:var(--mut);font-family:var(--mono)}
 .cat-arr{
-  position:absolute;top:12px;right:12px;
-  color:var(--mut);font-size:15px;
-  transition:transform .18s,color .18s;
+  position:absolute;top:10px;right:10px;
+  color:var(--mut);font-size:14px;font-weight:700;
+  transition:transform .2s,color .2s;
 }
-.cat.on .cat-arr{transform:rotate(90deg);color:var(--acc)}
+.cat-btn.active .cat-arr{transform:rotate(90deg);color:var(--acc)}
 
 /* ── COURS LIST ── */
-.cours-list{display:flex;flex-direction:column;gap:9px}
-.cours{
-  background:var(--s2);border:1px solid var(--brd);
-  border-radius:12px;padding:12px 14px;
-  display:flex;align-items:center;gap:13px;
-  text-decoration:none;color:inherit;
-  animation:up .25s ease both;
-  transition:all .15s;
+.cours-section{margin-top:4px}
+.cours-header{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:12px;
 }
-.cours:active{transform:scale(.97);border-color:var(--acc2)}
-@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.cours-thumb{
-  width:42px;height:42px;border-radius:9px;
-  background:linear-gradient(135deg,var(--acc2),var(--acc));
-  display:flex;align-items:center;justify-content:center;
-  font-size:18px;flex-shrink:0;
-  box-shadow:0 4px 10px rgba(124,92,252,.25);
-}
-.cours-info{flex:1;min-width:0}
-.cours-title{
-  font-size:12.5px;font-weight:600;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  margin-bottom:2px;
-}
-.cours-meta{font-size:10.5px;color:var(--mut)}
-.cours-play{
-  width:32px;height:32px;border-radius:8px;
-  background:linear-gradient(135deg,var(--acc),var(--acc2));
-  display:flex;align-items:center;justify-content:center;
-  color:#fff;font-size:13px;flex-shrink:0;
-  box-shadow:0 4px 10px rgba(79,142,255,.3);
+.cours-header-ico{font-size:22px}
+.cours-header-title{font-size:15px;font-weight:700;letter-spacing:-.2px}
+.cours-header-count{
+  margin-left:auto;
+  background:rgba(91,141,238,.1);border:1px solid rgba(91,141,238,.2);
+  color:var(--acc);font-size:10px;font-weight:600;
+  padding:3px 9px;border-radius:20px;font-family:var(--mono);
 }
 
-/* ── STATES ── */
-.spin-wrap{
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  padding:60px 20px;gap:14px;color:var(--mut);font-size:13px;
+.cours-list{display:flex;flex-direction:column;gap:8px}
+.cours-item{
+  display:flex;align-items:center;gap:12px;
+  background:var(--s2);border:1px solid var(--brd);
+  border-radius:12px;padding:12px 14px;
+  text-decoration:none;color:inherit;
+  animation:slideUp .22s ease both;
+  transition:border-color .15s,background .15s;
+}
+.cours-item:active{border-color:var(--acc2);background:rgba(167,139,250,.05)}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.cours-num{
+  width:32px;height:32px;border-radius:8px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--acc),var(--acc2));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:12px;font-weight:700;color:#fff;
+  box-shadow:0 4px 12px rgba(91,141,238,.25);
+}
+.cours-info{flex:1;min-width:0}
+.cours-titre{
+  font-size:13px;font-weight:600;letter-spacing:-.1px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px;
+}
+.cours-desc{font-size:10.5px;color:var(--mut);line-height:1.4}
+.cours-dl{
+  width:30px;height:30px;border-radius:8px;flex-shrink:0;
+  background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.2);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--grn);font-size:14px;
+}
+
+/* ── ÉTATS ── */
+.loading{
+  display:flex;flex-direction:column;align-items:center;
+  padding:80px 20px;gap:16px;color:var(--mut);font-size:13px;
 }
 .spinner{
-  width:34px;height:34px;
-  border:3px solid var(--brd);border-top-color:var(--acc);
-  border-radius:50%;animation:spin .8s linear infinite;
+  width:32px;height:32px;
+  border:2.5px solid var(--brd);border-top-color:var(--acc);
+  border-radius:50%;animation:spin .75s linear infinite;
 }
 @keyframes spin{to{transform:rotate(360deg)}}
 
 .denied{
-  background:var(--s1);border:1px solid rgba(247,90,90,.2);
-  border-radius:var(--r);padding:32px 20px;text-align:center;
-  margin-top:12px;
+  background:var(--s1);
+  border:1px solid rgba(248,113,113,.15);
+  border-radius:var(--r);padding:36px 20px;text-align:center;margin-top:8px;
 }
-.denied .ico{font-size:50px;margin-bottom:12px}
-.denied h3{font-size:17px;font-weight:700;color:var(--red);margin-bottom:8px}
-.denied p{font-size:12.5px;color:var(--mut);line-height:1.65}
-.denied a{
-  margin-top:16px;display:inline-flex;align-items:center;gap:6px;
-  background:rgba(247,90,90,.1);border:1px solid rgba(247,90,90,.2);
-  color:var(--red);font-size:13px;font-weight:600;
-  padding:10px 18px;border-radius:10px;text-decoration:none;
+.denied .d-ico{font-size:52px;display:block;margin-bottom:14px}
+.denied h3{font-size:18px;font-weight:800;color:var(--red);margin-bottom:8px;letter-spacing:-.3px}
+.denied p{font-size:13px;color:var(--mut);line-height:1.7;margin-bottom:4px}
+.denied .contact{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-top:18px;background:rgba(248,113,113,.1);
+  border:1px solid rgba(248,113,113,.2);color:var(--red);
+  font-size:13px;font-weight:600;padding:11px 20px;border-radius:10px;
+  text-decoration:none;
 }
 
-.err-box{
-  background:rgba(247,90,90,.08);border:1px solid rgba(247,90,90,.2);
-  border-radius:12px;padding:24px 18px;text-align:center;
-  color:var(--red);font-size:13px;line-height:1.75;margin-top:12px;
+.err{
+  background:rgba(248,113,113,.07);border:1px solid rgba(248,113,113,.15);
+  border-radius:12px;padding:28px 18px;text-align:center;margin-top:8px;
 }
-.err-box .eico{font-size:34px;display:block;margin-bottom:10px}
-.err-detail{font-size:10.5px;opacity:.5;margin-top:6px;font-family:'JetBrains Mono',monospace;word-break:break-all}
+.err .e-ico{font-size:36px;display:block;margin-bottom:10px}
+.err p{font-size:13px;color:var(--red);line-height:1.6}
+.err code{font-family:var(--mono);font-size:10px;opacity:.6;display:block;margin-top:6px;word-break:break-all}
 .retry{
-  margin-top:14px;
-  background:var(--acc);color:#fff;border:none;border-radius:9px;
-  padding:10px 22px;font-size:13px;font-weight:600;cursor:pointer;
-  font-family:'Sora',sans-serif;
+  margin-top:14px;background:var(--acc);color:#fff;border:none;
+  border-radius:9px;padding:10px 24px;font-size:13px;font-weight:700;
+  cursor:pointer;font-family:var(--font);
 }
 
 .empty{text-align:center;padding:40px;color:var(--mut)}
-.empty span{font-size:40px;display:block;margin-bottom:10px}
+.empty span{font-size:38px;display:block;margin-bottom:10px}
+.empty p{font-size:13px}
 
-.fade{animation:fadeIn .3s ease both}
+.fade{animation:fadeIn .3s ease}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 </style>
 </head>
 <body>
-
 <header>
-  <div class="logo">📚</div>
-  <div class="logo-txt"><h1>TopSchool</h1><p>Centre de Formation</p></div>
-  <div class="badge" id="badge">...</div>
+  <div class="logo-wrap">📚</div>
+  <div class="logo-info"><h1>TopSchool</h1><p>Centre de Formation</p></div>
+  <div class="user-chip" id="chip">...</div>
 </header>
-
 <main id="app">
-  <div class="spin-wrap"><div class="spinner"></div><span>Chargement...</span></div>
+  <div class="loading"><div class="spinner"></div><span>Chargement...</span></div>
 </main>
 
 <script>
-// ═══════════════════════════════════════════════════
-//  CONFIG — Supabase (clé publishable = safe côté client)
-// ═══════════════════════════════════════════════════
-const SB_URL = 'https://fpjhfwkthujyromafjqd.supabase.co';
-const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZwamhmd2t0aHVqeXJvbWFmanFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxNTUyODAsImV4cCI6MjA4ODczMTI4MH0.7jgCPitW2XAa3wceykEyhQx0QLPfFl4anUSFdihIaTE';
+const SB   = 'https://fpjhfwkthujyromafjqd.supabase.co';
+const KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZwamhmd2t0aHVqeXJvbWFmanFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxNTUyODAsImV4cCI6MjA4ODczMTI4MH0.7jgCPitW2XAa3wceykEyhQx0QLPfFl4anUSFdihIaTE';
 
-// ═══════════════════════════════════════════════════
-//  TELEGRAM INIT
-// ═══════════════════════════════════════════════════
-const tg   = window.Telegram?.WebApp;
-const tgU  = tg?.initDataUnsafe?.user;
-const TID  = String(tgU?.id || 'demo');
-const NOM  = tgU?.first_name || 'Apprenant';
+// ── Telegram init ──
+const tg  = window.Telegram?.WebApp;
+const tgU = tg?.initDataUnsafe?.user;
+// username sans @, fallback demo
+const USERNAME = (tgU?.username || 'demo').toLowerCase().replace('@','');
+const PRENOM   = tgU?.first_name || 'Apprenant';
 
 if (tg) { tg.ready(); tg.expand(); }
-document.getElementById('badge').textContent = NOM;
+document.getElementById('chip').textContent = '@' + USERNAME;
 
-let CATS = [], COURS = [], ACT = null;
+let CATS = [], COURS = [], CLIENT = null, ACTIVE_CAT = null;
 
-// ═══════════════════════════════════════════════════
-//  SUPABASE REST
-// ═══════════════════════════════════════════════════
+// ── REST Supabase ──
 async function sb(table, qs) {
-  const r = await fetch(`${SB_URL}/rest/v1/${table}?${qs}`, {
+  const r = await fetch(`${SB}/rest/v1/${table}?${qs}`, {
     headers:{
-      'apikey': SB_KEY,
-      'Authorization': `Bearer ${SB_KEY}`,
-      'Content-Type': 'application/json'
+      'apikey': KEY,
+      'Authorization': `Bearer ${KEY}`,
+      'Accept': 'application/json'
     }
   });
-  if (!r.ok) throw new Error(`Supabase ${table} → HTTP ${r.status}`);
+  if (!r.ok) throw new Error(`${table} HTTP ${r.status}`);
   return r.json();
 }
 
-// ═══════════════════════════════════════════════════
-//  INIT
-// ═══════════════════════════════════════════════════
+// ── Init ──
 async function init() {
   try {
-    // 1. Vérifier utilisateur
-    const users = await sb('utilisateurs', `telegram_id=eq.${TID}&select=id,prenom,statut`);
-    const u = users[0];
+    // 1. Vérifier client par username
+    const clients = await sb('clients',
+      `username=eq.${USERNAME}&actif=eq.true&select=id,prenom,actif`);
 
-    if (!u || u.statut !== 'actif') {
-      renderDenied();
-      return;
-    }
+    if (!clients.length) { renderDenied(); return; }
+    CLIENT = clients[0];
 
-    // 2. Charger catégories + cours en parallèle
-    const [cats, cours] = await Promise.all([
+    // 2. Récupérer abonnements actifs
+    const abos = await sb('abonnements',
+      `client_id=eq.${CLIENT.id}&actif=eq.true&select=categorie`);
+
+    if (!abos.length) { renderDenied(); return; }
+    const myCats = abos.map(a => a.categorie);
+
+    // 3. Récupérer catégories + tous les cours en parallèle
+    const [allCats, allCours] = await Promise.all([
       sb('categories', 'select=code,nom,icone,ordre&order=ordre'),
-      sb('cours', `utilisateur_id=eq.${u.id}&select=code_formation,titre,lien,duree,ordre&order=ordre`)
+      sb('cours', `categorie=in.(${myCats.join(',')})&select=*&order=categorie,ordre`)
     ]);
 
-    CATS  = cats;
-    COURS = cours;
-    renderMain(u.prenom || NOM);
+    CATS  = allCats.filter(c => myCats.includes(c.code));
+    COURS = allCours;
+    renderMain();
 
   } catch(e) {
     renderErr(e.message);
   }
 }
 
-// ═══════════════════════════════════════════════════
-//  RENDUS
-// ═══════════════════════════════════════════════════
-function renderMain(nom) {
+// ── Render principal ──
+function renderMain() {
+  const nom = CLIENT?.prenom || PRENOM;
   document.getElementById('app').innerHTML = `
-    <div class="greet fade">
-      <h2>👋 Bonjour, <span>${nom}</span> !</h2>
+    <div class="welcome fade">
+      <h2>Bienvenue, <span>${nom}</span> 👋</h2>
       <p>Sélectionnez une catégorie pour accéder à vos formations.</p>
     </div>
-    <div class="lbl">Catégories</div>
-    <div class="cat-grid" id="cats"></div>
-    <div id="cours-sec"></div>`;
+    <div class="sec-label">Mes catégories (${CATS.length})</div>
+    <div class="cat-grid" id="cat-grid"></div>
+    <div id="cours-zone"></div>`;
   drawCats();
 }
 
 function drawCats() {
-  document.getElementById('cats').innerHTML = CATS.map(c => {
-    const n = COURS.filter(x => x.code_formation === c.code).length;
-    return `<button class="cat${ACT===c.code?' on':''}" onclick="pick('${c.code}')">
+  document.getElementById('cat-grid').innerHTML = CATS.map(c => {
+    const n = COURS.filter(x => x.categorie === c.code).length;
+    const on = ACTIVE_CAT === c.code;
+    return `<button class="cat-btn${on?' active':''}" onclick="pick('${c.code}')">
       <span class="cat-ico">${c.icone||'📂'}</span>
-      <span class="cat-nm">${c.nom}</span>
-      <span class="cat-cnt">${n} cours</span>
+      <div class="cat-name">${c.nom}</div>
+      <div class="cat-count">${n} vidéo${n>1?'s':''}</div>
       <span class="cat-arr">›</span>
     </button>`;
   }).join('');
 }
 
 function pick(code) {
-  ACT = ACT===code ? null : code;
+  ACTIVE_CAT = ACTIVE_CAT === code ? null : code;
   drawCats();
-  const sec = document.getElementById('cours-sec');
-  if (!ACT) { sec.innerHTML=''; return; }
-  const list = COURS.filter(c => c.code_formation===code);
-  const cat  = CATS.find(c => c.code===code);
+  const zone = document.getElementById('cours-zone');
+  if (!ACTIVE_CAT) { zone.innerHTML = ''; return; }
+
+  const list = COURS.filter(c => c.categorie === code);
+  const cat  = CATS.find(c => c.code === code);
+
   if (!list.length) {
-    sec.innerHTML='<div class="empty"><span>📭</span><p>Aucun cours disponible.</p></div>';
+    zone.innerHTML = '<div class="empty"><span>📭</span><p>Aucun cours disponible.</p></div>';
     return;
   }
-  sec.innerHTML = `
-    <div class="lbl fade">${cat?.icone||'📚'} ${cat?.nom||code}</div>
-    <div class="cours-list fade">
-      ${list.map((c,i)=>`
-        <a class="cours" href="${c.lien}" target="_blank" style="animation-delay:${i*.06}s">
-          <div class="cours-thumb">🎬</div>
+
+  zone.innerHTML = `
+    <div class="cours-header fade">
+      <span class="cours-header-ico">${cat?.icone||'📂'}</span>
+      <span class="cours-header-title">${cat?.nom||code}</span>
+      <span class="cours-header-count">${list.length} vidéo${list.length>1?'s':''}</span>
+    </div>
+    <div class="cours-list">
+      ${list.map((c,i) => `
+        <a class="cours-item" href="${c.lien_drive}" target="_blank"
+           style="animation-delay:${i*0.06}s">
+          <div class="cours-num">${String(i+1).padStart(2,'0')}</div>
           <div class="cours-info">
-            <div class="cours-title">${c.titre}</div>
-            <div class="cours-meta">${c.duree||'Vidéo de formation'}</div>
+            <div class="cours-titre">${c.titre}</div>
+            <div class="cours-desc">${c.description || 'Formation vidéo'}</div>
           </div>
-          <div class="cours-play">▶</div>
+          <div class="cours-dl">⬇</div>
         </a>`).join('')}
     </div>`;
-  setTimeout(()=>sec.scrollIntoView({behavior:'smooth',block:'start'}),80);
+
+  setTimeout(() => zone.scrollIntoView({behavior:'smooth',block:'start'}), 80);
   if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
 }
 
 function renderDenied() {
   document.getElementById('app').innerHTML = `
     <div class="denied fade">
-      <div class="ico">🔒</div>
-      <h3>Accès refusé</h3>
-      <p>Votre abonnement est expiré ou introuvable.<br>Contactez Mr Bouafia Rehabi pour renouveler.</p>
-      <a href="tel:0656371202">📞 0656 37 12 02</a>
+      <span class="d-ico">🔒</span>
+      <h3>Accès non autorisé</h3>
+      <p>Votre compte <strong>@${USERNAME}</strong> n'est pas enregistré<br>ou votre abonnement a expiré.</p>
+      <p style="margin-top:8px">Contactez-nous pour vous inscrire :</p>
+      <a href="tel:0656371202" class="contact">📞 0656 37 12 02</a>
     </div>`;
 }
 
 function renderErr(msg) {
   document.getElementById('app').innerHTML = `
-    <div class="err-box fade">
-      <span class="eico">⚠️</span>
-      <strong>Erreur de chargement</strong>
-      <div class="err-detail">${msg}</div>
+    <div class="err fade">
+      <span class="e-ico">⚠️</span>
+      <p>Erreur de connexion</p>
+      <code>${msg}</code>
       <button class="retry" onclick="init()">🔄 Réessayer</button>
     </div>`;
 }
