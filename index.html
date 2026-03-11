@@ -234,7 +234,8 @@ const tgU = tg?.initDataUnsafe?.user;
 // username sans @, fallback demo
 const params = new URLSearchParams(window.location.search);
 const params = new URLSearchParams(window.location.search);
-const USERNAME = (params.get('u') || tgU?.username || 'demo').toLowerCase().replace('@','');
+// NOUVELLE ligne — sans toLowerCase()
+const USERNAME = (params.get('u') || tgU?.username || 'demo').replace('@','');
 const PRENOM   = tgU?.first_name || 'Apprenant';
 
 if (tg) { tg.ready(); tg.expand(); }
